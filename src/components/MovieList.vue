@@ -9,15 +9,19 @@ export default {
     components: {
         MovieListCard
     },
+    props: {
+        movieList: {
+            type: Array,
+            required: true
+        }
+    }
 }
 </script>
 
 <template>
-    <h2>
-        Sono la MovieList
-    </h2>
 
-    <MovieListCard />
+    <MovieListCard v-for="movie in movieList" :key="movie.id" :title="movie.title"
+        :original-title="movie.original_title" :language="movie.original_language" :vote="movie.vote_average" />
 
 </template>
 

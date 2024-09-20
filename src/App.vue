@@ -25,16 +25,19 @@ export default {
           query: content,
         }
       })
-        .then(function (response) {
+        .then((response) => {
           // controllo che query mi sta arrivando
           console.log(content);
           // controllo la risposta che in questo caso mi restituisce un array di oggetti
           console.log(response.data.results);
+          // assegno alla variabile movieList l'array di oggetti
+          this.movieList = response.data.results;
         })
         .catch(function (error) {
           console.log(error);
         })
         .finally(function () {
+          console.log('chiamata terminata')
         });
     }
   }
@@ -44,7 +47,7 @@ export default {
 <template>
 
   <SearchBar @search="getApi" />
-  <MovieList />
+  <MovieList :movieList="movieList" />
 
 </template>
 
