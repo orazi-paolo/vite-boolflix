@@ -1,5 +1,5 @@
 <script>
-import MovieListCard from './MovieListCard.vue';
+import MovieListCard from './MovieLIstCard.vue';
 import SerieTvListCard from './SerieTvListCard.vue';
 export default {
     data() {
@@ -28,9 +28,9 @@ export default {
     <main class="container mt-3">
         <div class="row row-cols-3">
             <MovieListCard v-for="movie in movieList" :key="movie.id" :title="movie.title"
-                :original-title="movie.original_title" :language="movie.original_language" :vote="movie.vote_average" :img-poster="movie.poster_path"/>
+                :original-title="movie.original_title" :language="movie.original_language" :vote="movie.vote_average" :img-poster="movie.poster_path" :id="movie.id"/>
             <SerieTvListCard v-for="tv in serieTvList" :key="tv.id" 
-            :name="tv.name" :original-name="tv.original_name" :language="tv.original_language" :vote="tv.vote_average" :img-poster="tv.poster_path" />
+            :name="tv.name" :original-name="tv.original_name" :language="tv.original_language" :vote="tv.vote_average" :img-poster="tv.poster_path" :id="tv.id"/>
         </div>
     </main>
 

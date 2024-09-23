@@ -28,8 +28,6 @@ export default {
         }
       })
         .then((response) => {
-          // controllo che query mi sta arrivando
-          console.log(content);
           // controllo la risposta che in questo caso mi restituisce un array di oggetti
           console.log(response.data.results);
           // assegno alla variabile movieList l'array di oggetti

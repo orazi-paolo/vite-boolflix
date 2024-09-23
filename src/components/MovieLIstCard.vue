@@ -1,8 +1,12 @@
 <script>
+import axios from 'axios';
 export default {
     data() {
         return {
-            imgPath: 'https://image.tmdb.org/t/p/w342'
+            imgPath: 'https://image.tmdb.org/t/p/w342',
+            apikey: '326b39b723b5e214fc6441c1e27fb3ed',
+            apiUrlActors: 'https://api.themoviedb.org/3/movie/',
+            actors: []
 
         }
     },
@@ -26,9 +30,33 @@ export default {
         imgPoster: {
             type: String,
             required: false
+        },
+        id:{
+            type: Number,
+            required: true
         }
     },
     methods: {
+        // faccio la chiamata all'API per avere indietro gli attori
+        getApiActors() {
+        axios.get(`${this.apiUrlActors}${this.id}/credits`, {
+            params: {
+                // l unico parametro di cui ho bisogno è la mia chiave
+            api_key: this.apikey,
+        }
+        })
+        .then((response) => {
+          console.log(response);
+          this.actors = response.data.cast.slice(0, 5);
+
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+        .finally(function () {
+          console.log('chiamata attori terminata')
+        });
+    },
         imgError(event) {
             event.target.src = '/default.jpg';
         }
@@ -43,7 +71,6 @@ export default {
         },
         // creo una computed che mi trasforma il voto in una scala da 1 a 5 per le stelle
         starRating() {
-            console.log(Math.ceil(this.vote));
             return Math.ceil((Math.ceil(this.vote) / 10) * 5);
         },
         // creo dinamicamente il background-image
@@ -54,6 +81,9 @@ export default {
             backgroundRepeat: 'no-repeat'
         }
     }
+    },
+    created(){
+        this.getApiActors();
     }
 }
 </script>
@@ -70,6 +100,14 @@ export default {
                     <i v-if="n <= starRating" class="fas fa-star"></i>
                     <i v-else class="far fa-star"></i>
                 </span>
+            </li>
+            <li v-if="actors.length > 0">
+                <div>Attori principali:</div>
+                <ul>
+                    <li v-for="actor in actors" :key="actor.id">
+                        {{ actor.name }}
+                    </li>
+                </ul>
             </li>
     
         </ul>
