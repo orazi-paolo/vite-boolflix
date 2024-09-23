@@ -6,7 +6,9 @@ export default {
             imgPath: 'https://image.tmdb.org/t/p/w342',
             apikey: '326b39b723b5e214fc6441c1e27fb3ed',
             apiUrlActors: 'https://api.themoviedb.org/3/movie/',
-            actors: []
+            apiUrlGenres: 'https://api.themoviedb.org/3/movie/',
+            actors: [],
+            genres: []
 
         }
     },
@@ -59,7 +61,27 @@ export default {
     },
         imgError(event) {
             event.target.src = '/default.jpg';
+        },
+        getApiGenre() {
+        axios.get(`${this.apiUrlGenres}${this.id}`, {
+            params: {
+                // l unico parametro di cui ho bisogno è la mia chiave
+            api_key: this.apikey,
         }
+        })
+        .then((response) => {
+            // prendo i generi
+            console.log(response.data.genres);
+            this.genres = response.data.genres;
+
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+        .finally(function () {
+            console.log('chiamata per i generi terminata')
+        });
+    },
     },
     computed: {
         // creo una computed property per gestire le bandiere
@@ -84,6 +106,7 @@ export default {
     },
     created(){
         this.getApiActors();
+        this.getApiGenre();
     }
 }
 </script>
@@ -102,11 +125,17 @@ export default {
                 </span>
             </li>
             <li v-if="actors.length > 0">
-                <div>Attori principali:</div>
+                <h4>Attori principali:</h4>
                 <ul>
                     <li v-for="actor in actors" :key="actor.id">
                         {{ actor.name }}
                     </li>
+                </ul>
+            </li>
+            <li v-if="genres.length > 0">
+                <h4>Generi:</h4>
+                <ul>
+                    <li v-for="genre in genres" :key="genre.id">{{ genre.name }}</li>
                 </ul>
             </li>
     

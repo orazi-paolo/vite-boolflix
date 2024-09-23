@@ -5,8 +5,9 @@ export default {
     return {
         imgPath: 'https://image.tmdb.org/t/p/w342',
         apikey: '326b39b723b5e214fc6441c1e27fb3ed',
-        apiUrlActors: 'https://api.themoviedb.org/3/movie/',
-        actors: []
+        apiUrlActorsAndGenre: 'https://api.themoviedb.org/3/tv/',
+        actors: [],
+        genres: []
 
     }
   },
@@ -39,7 +40,7 @@ export default {
     methods: {
       // faccio la chiamata all'API per avere indietro gli attori
       getApiActors() {
-        axios.get(`${this.apiUrlActors}${this.id}/credits`, {
+        axios.get(`${this.apiUrlActorsAndGenre}${this.id}/credits`, {
             params: {
                 // l unico parametro di cui ho bisogno è la mia chiave
             api_key: this.apikey,
@@ -59,6 +60,26 @@ export default {
         imgError(event) {
             event.target.src = '/default.jpg';
         },
+        getApiGenre() {
+        axios.get(`${this.apiUrlActorsAndGenre}${this.id}`, {
+            params: {
+            // l unico parametro di cui ho bisogno è la mia chiave
+              api_key: this.apikey,
+        }
+        })
+        .then((response) => {
+            // prendo i generi
+            console.log(response.data.genres);
+            this.genres = response.data.genres;
+
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+        .finally(function () {
+            console.log('chiamata per i generi terminata')
+        });
+    },
         
     },
     computed: {
@@ -84,6 +105,7 @@ export default {
     },
     mounted() {
         this.getApiActors();
+        this.getApiGenre();
     }
 }
 </script>
@@ -107,6 +129,12 @@ export default {
               <li v-for="actor in actors" :key="actor.id">
                 {{ actor.name }}
              </li>
+            </ul>
+        </li>
+        <li v-if="genres.length > 0">
+            <h4>Generi:</h4>
+            <ul>
+                <li v-for="genre in genres" :key="genre.id">{{ genre.name }}</li>
             </ul>
         </li>
 
