@@ -27,9 +27,9 @@ export default {
 <template>
 
     <MovieListCard v-for="movie in movieList" :key="movie.id" :title="movie.title"
-        :original-title="movie.original_title" :language="movie.original_language" :vote="movie.vote_average"/>
+        :original-title="movie.original_title" :language="movie.original_language" :vote="movie.vote_average" :img-poster="movie.poster_path"/>
     <SerieTvListCard v-for="tv in serieTvList" :key="tv.id" 
-    :name="tv.name" :original-name="tv.original_name" :language="tv.original_language" :vote="tv.vote_average" />
+    :name="tv.name" :original-name="tv.original_name" :language="tv.original_language" :vote="tv.vote_average" :img-poster="tv.poster_path" />
 
 </template>
 

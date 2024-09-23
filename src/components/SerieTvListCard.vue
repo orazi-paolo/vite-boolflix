@@ -2,6 +2,7 @@
 export default {
   data() {
     return {
+        imgPath: 'https://image.tmdb.org/t/p/w342'
       
     }
   },
@@ -21,8 +22,12 @@ export default {
     vote: {
       type: Number,
       required: true
-    }
     },
+    imgPoster: {
+      type: String,
+      required: false,
+    }
+  },
     methods: {
         imgError(event) {
             event.target.src = '/default.jpg';
@@ -42,16 +47,18 @@ export default {
 
 <template>
     <ul>
+        <li><img :src="`${imgPath}${imgPoster}`" :alt="name"></li>
         <li>{{ name }}</li>
         <li> {{ originalName }}</li>
-        <li><img :src="flag" :alt="language" @error="imgError"></li>
+        <li><img class="language" :src="flag" :alt="language" @error="imgError"></li>
         <li>{{ vote }}</li>
 
     </ul>
 </template>
 
 <style lang="scss" scoped>
-img {
+.language {
     height: 10px;
 }
+
 </style>
