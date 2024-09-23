@@ -21,12 +21,29 @@ export default {
 </script>
 
 <template>
-    <header>
-        <nav>
-            <input type="text" v-model="content">
-            <button @click="search()">Search</button>
-        </nav>
+    <header class="p-3">
+        <div class="container">
+            <nav class="d-flex justify-content-between align-items-center">
+                <div>
+                    <a href="#" class="text-danger"><h1>BOOLFLIX</h1></a>
+                </div>
+                <div>
+                    <input type="text" v-model="content" placeholder="Search" @keyup.enter="search()">
+                    <button @click="search()">Search</button>
+                </div>
+            </nav>
+        </div>
     </header>
 </template>
 
-<style scoped></style>
+<style lang="scss" scoped>
+header{
+    background-color: black;
+    nav{
+        a{
+            text-decoration: none;
+            color: white;
+        }
+    }
+}
+</style>

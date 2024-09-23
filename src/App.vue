@@ -74,4 +74,9 @@ export default {
 
 </template>
 
-<style lang="scss"></style>
+<style lang="scss">
+@use 'bootstrap/scss/bootstrap.scss';
+body {
+  background-color: grey;
+}
+</style>

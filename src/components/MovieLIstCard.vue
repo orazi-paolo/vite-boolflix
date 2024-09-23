@@ -45,29 +45,56 @@ export default {
         starRating() {
             console.log(Math.ceil(this.vote));
             return Math.ceil((Math.ceil(this.vote) / 10) * 5);
+        },
+        // creo dinamicamente il background-image
+        backgroundStyle() {
+        return {
+            backgroundImage: `url(${this.imgPath}${this.imgPoster})`,
+            backgroundSize: '100% 100%', 
+            backgroundRepeat: 'no-repeat'
         }
+    }
     }
 }
 </script>
 
 <template>
-    <ul>
-        <li><img :src="`${imgPath}${imgPoster}`" :alt="title"></li>
-        <li>{{ title }}</li>
-        <li> {{ originalTitle }}</li>
-        <li><img class="language" :src="flag" :alt="language" @error="imgError"></li>
-        <li>
-            <span v-for="n in 5" :key="n">
-                <i v-if="n <= starRating" class="fas fa-star"></i>
-                <i v-else class="far fa-star"></i>
-            </span>
-        </li>
-
-    </ul>
+    <div v-if="imgPoster" class="col" :style="backgroundStyle">
+        <ul class="d-none list-unstyled pt-4 ps-2 pe-2">
+            <li>Titolo: {{ title }}</li>
+            <li>Titolo originale: {{ originalTitle }}</li>
+            <li>Lingua: <img class="language" :src="flag" :alt="language" @error="imgError"></li>
+            <li>
+                <div>Voto:</div>
+                <span v-for="n in 5" :key="n">
+                    <i v-if="n <= starRating" class="fas fa-star"></i>
+                    <i v-else class="far fa-star"></i>
+                </span>
+            </li>
+    
+        </ul>
+    </div>
 </template>
 
 <style lang="scss" scoped>
 .language {
     height: 10px;
+}
+.col{
+    height: calc(100vh - 150px);
+    cursor: pointer;
+    &:hover{
+        border: 3px solid white;
+        ul{
+            display: block !important;
+
+            li{
+                color: white;
+            }
+        }
+        background-image: none !important;
+        background-color: black !important;
+        transition: all 0.5s;
+    }
 }
 </style>
