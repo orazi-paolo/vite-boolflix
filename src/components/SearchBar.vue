@@ -9,8 +9,10 @@ export default {
         search() {
             // stampo in console per controllare se prendo il valore corretto
             console.log(this.content);
-            // invio il valore al padre
-            this.$emit("search", this.content);
+            // invio il valore al padre per i film
+            this.$emit("searchMovie", this.content);
+            // invio il valore al padre per le serie tv
+            this.$emit("searchTv", this.content);
             // lo resetto dopo aver fatto la ricerca
             this.content = "";
         }
